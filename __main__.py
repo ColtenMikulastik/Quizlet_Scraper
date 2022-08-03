@@ -21,7 +21,19 @@ def main():
             word_an_def.append(word.text)
         all_defs_and_words.append(word_an_def)
 
-    print(all_defs_and_words)
+    # create a flapper to flip between calling string def or term and print the term numb
+    def_flapper = True
+    def_number = 1
+    for card in all_defs_and_words: 
+        # look throug the list's sublists
+        for definition_or_term in card:
+            if def_flapper == True:
+                print("(" + str(def_number) + ") def: ")
+            else: 
+                print("(" + str(def_number) + ") term: ") 
+                def_number += 1
+            print(definition_or_term)
+            def_flapper = not(def_flapper)
 
 if __name__ == "__main__":
     main()
