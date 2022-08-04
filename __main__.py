@@ -33,17 +33,27 @@ def print_cards(all_defs_and_words):
             print(definition_or_term)
             def_flapper = not(def_flapper)
 
-
+def get_input_from_file(file_name):
+    """reads the contents of given file name returns a list of lines"""
+    file_contents = []
+    with open(file_name, 'r') as f_in:
+        for line in f_in:
+            file_contents.append(line)
+    return file_contents 
 
 
 def main():
+    input_file = "input.txt"
+    output_file = "output.txt"
+    # read url from file and remove new line
+    url_with_nl = get_input_from_file(input_file)
+    url = list(url_with_nl).pop()
 
-    url = "https://quizlet.com/215414023/us-hist-ch-11-14-flash-cards/"
     # because someone doesn't like being scraped this is a random header I found somewhere
     headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0'}
     responce = requests.get(url, headers=headers)
     soup = bs4.BeautifulSoup(responce.content, "html.parser")
-    
+   
     # searches the soup for the wanted data
     all_defs_and_words = find_data_in_soup(soup)
     # prints the data found in bs to cmd
