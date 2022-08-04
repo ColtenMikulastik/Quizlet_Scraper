@@ -2,16 +2,19 @@ import requests
 import bs4
 
 def find_data_in_soup(soup):
+    # var to store all data
     all_defs_and_words = []
-
+    # looks for each card
     cards = soup.find_all("div", class_="SetPageTerm-sideContent")
     for card in cards:
-        word_an_def = []
+        # mini sub list that stores teh term and def
+        word_and_def = []
         text = card.find_all("span")
-
+        # look for the def and the term in the div
         for word in text:
-            word_an_def.append(word.text)
-        all_defs_and_words.append(word_an_def)
+            word_and_def.append(word.text)
+        # add the term and the def list, to the larger full list
+        all_defs_and_words.append(word_and_def)
     return all_defs_and_words
 
 
