@@ -12,7 +12,6 @@ def main():
     
     all_defs_and_words = []
 
-    print(soup)
     cards = soup.find_all("div", class_="SetPageTerm-sideContent")
     for card in cards:
         word_an_def = []
