@@ -1,6 +1,20 @@
 import requests
 import bs4
 
+def find_data_in_soup(soup):
+    all_defs_and_words = []
+
+    cards = soup.find_all("div", class_="SetPageTerm-sideContent")
+    for card in cards:
+        word_an_def = []
+        text = card.find_all("span")
+
+        for word in text:
+            word_an_def.append(word.text)
+        all_defs_and_words.append(word_an_def)
+    return all_defs_and_words
+
+
 
 def main():
 
@@ -10,15 +24,7 @@ def main():
     responce = requests.get(url, headers=headers)
     soup = bs4.BeautifulSoup(responce.content, "html.parser")
     
-    all_defs_and_words = []
-
-    cards = soup.find_all("div", class_="SetPageTerm-sideContent")
-    for card in cards:
-        word_an_def = []
-        text = card.find_all("span")
-        for word in text:
-            word_an_def.append(word.text)
-        all_defs_and_words.append(word_an_def)
+    all_defs_and_words = find_data_in_soup(soup)
 
     # create a flapper to flip between calling string def or term and print the term numb
     def_flapper = True
