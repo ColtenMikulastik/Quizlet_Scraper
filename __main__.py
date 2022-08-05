@@ -43,10 +43,11 @@ def get_input_from_file(file_name):
     return file_contents 
 
 
-def quizlet_write_to_file(file_name, quizlet_term_def):
+def quizlet_write_to_file(file_name, quizlet_term_def, quizlet_name):
     # open file with a so that we append
     with open(file_name, 'a') as f_out:
         # loop througt the dictionary
+        f_out.write("!!!" + quizlet_name + "!!!\n")
         term_number = 1
         term_flapper = True
         # loop through list
@@ -79,13 +80,15 @@ def main():
         headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0'}
         responce = requests.get(url, headers=headers)
         soup = bs4.BeautifulSoup(responce.content, "html.parser")
-       
+        # get the quizlet's name
+        quizlet_name = soup.find("div", class_="SetPage-titleWrapper").h1.text
+
         # searches the soup for the wanted data
         all_defs_and_words = find_data_in_soup(soup)
         # prints the data found in bs to cmd 
         # print_cards(all_defs_and_words)
         # writes to the file
-        quizlet_write_to_file(output_file, all_defs_and_words)
+        quizlet_write_to_file(output_file, all_defs_and_words, quizlet_name)
 
 
 if __name__ == "__main__":
