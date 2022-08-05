@@ -42,6 +42,7 @@ def get_input_from_file(file_name):
             file_contents.append(line)
     return file_contents 
 
+
 def quizlet_write_to_file(file_name, quizlet_term_def):
     # open file with a so that we append
     with open(file_name, 'a') as f_out:
@@ -60,24 +61,31 @@ def quizlet_write_to_file(file_name, quizlet_term_def):
                     term_number += 1
                 term_flapper = not(term_flapper)
 
+
 def main():
     input_file = "input.txt"
     output_file = "output.txt"
     # read url from file and remove new line
-    url_with_nl = get_input_from_file(input_file)
-    url = list(url_with_nl).pop()
+    list_of_urls = get_input_from_file(input_file)
+    print(list_of_urls)
+    for url in list_of_urls:
+        # all of this bs to remove the new line from the url
+        url = list(url)
+        url.pop(-1)
+        url = "".join(url)
+        print(url)
 
-    # because someone doesn't like being scraped this is a random header I found somewhere
-    headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0'}
-    responce = requests.get(url, headers=headers)
-    soup = bs4.BeautifulSoup(responce.content, "html.parser")
-   
-    # searches the soup for the wanted data
-    all_defs_and_words = find_data_in_soup(soup)
-    # prints the data found in bs to cmd 
-    # print_cards(all_defs_and_words)
-    # writes to the file
-    quizlet_write_to_file(output_file, all_defs_and_words)
+        # because someone doesn't like being scraped this is a random header I found somewhere
+        headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0'}
+        responce = requests.get(url, headers=headers)
+        soup = bs4.BeautifulSoup(responce.content, "html.parser")
+       
+        # searches the soup for the wanted data
+        all_defs_and_words = find_data_in_soup(soup)
+        # prints the data found in bs to cmd 
+        # print_cards(all_defs_and_words)
+        # writes to the file
+        quizlet_write_to_file(output_file, all_defs_and_words)
 
 
 if __name__ == "__main__":
