@@ -33,6 +33,7 @@ def print_cards(all_defs_and_words):
             print(definition_or_term)
             def_flapper = not(def_flapper)
 
+
 def get_input_from_file(file_name):
     """reads the contents of given file name returns a list of lines"""
     file_contents = []
@@ -41,6 +42,23 @@ def get_input_from_file(file_name):
             file_contents.append(line)
     return file_contents 
 
+def quizlet_write_to_file(file_name, quizlet_term_def):
+    # open file with a so that we append
+    with open(file_name, 'a') as f_out:
+        # loop througt the dictionary
+        term_number = 1
+        term_flapper = True
+        # loop through list
+        for card in quizlet_term_def:
+            # loop through sub-list
+            for text in card:
+                if term_flapper == True:
+                    f_out.write("term (" + str(term_number) + "): " +  text + '\n')
+                else:
+                    f_out.write("def (" + str(term_number) + "): "+ text + '\n')
+                    f_out.write("---------------------" + '\n')
+                    term_number += 1
+                term_flapper = not(term_flapper)
 
 def main():
     input_file = "input.txt"
@@ -56,8 +74,10 @@ def main():
    
     # searches the soup for the wanted data
     all_defs_and_words = find_data_in_soup(soup)
-    # prints the data found in bs to cmd
-    print_cards(all_defs_and_words)
+    # prints the data found in bs to cmd 
+    # print_cards(all_defs_and_words)
+    # writes to the file
+    quizlet_write_to_file(output_file, all_defs_and_words)
 
 
 if __name__ == "__main__":
