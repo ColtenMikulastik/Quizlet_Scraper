@@ -74,7 +74,7 @@ def main():
         url = list(url)
         url.pop(-1)
         url = "".join(url)
-        print(url)
+        print("Working on: (" + url + ")...")
 
         # because someone doesn't like being scraped this is a random header I found somewhere
         headers = {'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0'}
