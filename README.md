@@ -1,4 +1,4 @@
-Hey, this is a program that will collect terms from a bunch of given quizlet flashcard decks.\n
+Hey, this is a program that will collect terms from a bunch of given quizlet flashcard decks.
 
 Creator: Colten (Luca) Vance Mikulastik
 
