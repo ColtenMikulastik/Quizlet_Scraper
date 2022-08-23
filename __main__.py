@@ -43,9 +43,9 @@ def get_input_from_file(file_name):
     return file_contents 
 
 
-def quizlet_write_to_file(file_name, quizlet_term_def, quizlet_name):
+def quizlet_write_to_file(quizlet_term_def, quizlet_name):
     # open file with a so that we append
-    with open(file_name, 'a') as f_out:
+    with open(quizlet_name + ".lst", 'a') as f_out:
         # loop througt the dictionary
         f_out.write("!!!" + quizlet_name + "!!!\n")
         term_number = 1
@@ -65,7 +65,6 @@ def quizlet_write_to_file(file_name, quizlet_term_def, quizlet_name):
 
 def main():
     input_file = "input.txt"
-    output_file = "output.txt"
     # read url from file and remove new line
     list_of_urls = get_input_from_file(input_file)
     print(list_of_urls)
@@ -88,7 +87,7 @@ def main():
         # prints the data found in bs to cmd 
         # print_cards(all_defs_and_words)
         # writes to the file
-        quizlet_write_to_file(output_file, all_defs_and_words, quizlet_name)
+        quizlet_write_to_file(all_defs_and_words, quizlet_name)
 
 
 if __name__ == "__main__":
